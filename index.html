@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kacper Mikolajczak</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+        font-family: monospace;
+      }
+      a {
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+      }
+      .container {
+        display: grid;
+        place-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #ccc;
+      }
+      .ribbon {
+        position: absolute;
+        top: 5%;
+        left: 85%;
+        width: 300px;
+        padding: 10px;
+        transform: rotate(45deg);
+        text-align: center;
+        background-color: rgba(255, 100, 100, 0.5);
+      }
+      .wip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wip > div {
+        font-size: 2rem;
+        padding: 1px;
+        margin: 1px;
+        border-bottom: 1px dashed black;
+      }
+      .wip > div:hover {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="https://github.com/KacperM717" class="ribbon" id="ribbon"
+        >My github profile</a
+      >
+      <a
+        href="https://github.com/KacperM717"
+        class="wip"
+        id="wip"
+        title="Click to check out my github profile :)"
+      ></a>
+    </div>
+    <script>
+      function createRandomHitAnimation(sx, sy, n) {
+        if (!Number(n)) return null;
+        const steps = new Array(n + 2);
+        steps[0] = { x: sx, y: sy };
+        for (let i = 1; i <= n; i++) {
+          steps[i] = {
+            x:
+              steps[i - 1].x - Math.floor(Math.random() * 0.1 * steps[i - 1].x),
+            y:
+              steps[i - 1].y - Math.floor(Math.random() * 0.1 * steps[i - 1].y),
+          };
+        }
+        steps[n + 1] = { x: 0, y: 0 };
+        return steps.map((step) => ({
+          transform: `translate(${step.x}px, ${step.y}px)`,
+        }));
+      }
+      function appendElemWithAnim(
+        target,
+        keyframes,
+        options,
+        content = "",
+        elemType = "div"
+      ) {
+        const elem = document.createElement(elemType);
+        elem.innerHTML += content === " " ? "&nbsp" : content;
+        elem.animate(keyframes, options);
+        target.appendChild(elem);
+      }
+
+      const wipText = "Work In Progress!";
+      const wipAnimDuration = 1000;
+
+      window.onload = () => {
+        const wip = document.querySelector("#wip");
+        wipText.split("").forEach((char, index) => {
+          setTimeout(() => {
+            console.log(char, index);
+            const sx = Math.floor(
+              Math.random() * 2 * window.innerWidth - window.innerWidth
+            );
+            const sy = Math.floor(
+              Math.random() * 2 * window.innerHeight - window.innerHeight
+            );
+            appendElemWithAnim(
+              wip,
+              createRandomHitAnimation(sx, sy, wipAnimDuration / 10),
+              { duration: wipAnimDuration },
+              char
+            );
+          }, wipAnimDuration * index);
+        });
+      };
+    </script>
+  </body>
+</html>
