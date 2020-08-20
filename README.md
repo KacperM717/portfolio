@@ -1,2 +1,3 @@
-# portfolio
-My personal portfolio
+# Portfolio In Progress
+
+My personal portfolio that is not done yet
