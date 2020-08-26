@@ -12,7 +12,6 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-
         font-family: monospace;
       }
       a {
@@ -28,9 +27,9 @@
         background-color: #ccc;
       }
       .ribbon {
-        position: absolute;
-        top: 5%;
-        left: 85%;
+        position: fixed;
+        left: 84vw;
+        top: 7vh;
         width: 300px;
         padding: 10px;
         transform: rotate(45deg);
@@ -104,12 +103,8 @@
         wipText.split("").forEach((char, index) => {
           setTimeout(() => {
             console.log(char, index);
-            const sx = Math.floor(
-              Math.random() * 2 * window.innerWidth - window.innerWidth
-            );
-            const sy = Math.floor(
-              Math.random() * 2 * window.innerHeight - window.innerHeight
-            );
+            const sx = Math.floor(Math.random() * window.innerWidth - 50);
+            const sy = Math.floor(Math.random() * window.innerHeight - 50);
             appendElemWithAnim(
               wip,
               createRandomHitAnimation(sx, sy, wipAnimDuration / 10),
